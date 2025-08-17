@@ -196,18 +196,6 @@ python app/server.py
 
 - Port already in use → run with another host port: `docker run -p 8081:8080 objdet:latest` and open `http://127.0.0.1:8081`.
 
-- If your repo is public and `models/best.pt` is **>100 MB**, use **Git LFS**:
-
-&nbsp; ```bash
-
-&nbsp; git lfs install
-
-&nbsp; git lfs track "*.pt"
-
-&nbsp; git add .gitattributes
-
-&nbsp; ```
-
 
 
 ---
