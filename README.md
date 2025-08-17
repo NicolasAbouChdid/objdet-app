@@ -1,12 +1,12 @@
-\# Bottle Detection (Glass vs Plastic) — Flask · YOLOv5 · Docker · Render
+# Bottle Detection (Glass vs Plastic) — Flask · YOLOv5 · Docker · Render
 
 
 
-> Minimal, productionized object detector. Upload an image → get an \*\*annotated PNG\*\* with glass/plastic bottle detections.
+> Minimal, productionized object detector. Upload an image → get an **annotated PNG** with glass/plastic bottle detections.
 
 
 
-!\[Preview](docs/preview.png)
+![Preview](docs/preview.png)
 
 
 
@@ -14,23 +14,23 @@
 
 
 
-\## What this model does
+## What this model does
 
-\- Detects \*\*Glass Bottle\*\* and \*\*Plastic Bottle\*\* objects in images.
+- Detects **Glass Bottle** and **Plastic Bottle** objects in images.
 
-\- Returns an \*\*annotated image\*\* directly (keeps the demo simple and visual).
+- Returns an **annotated image** directly (keeps the demo simple and visual).
 
-\- Applies a small \*\*post‑processing filter\*\* to reduce false positives (e.g., faces as bottles).
+- Applies a small **post‑processing filter** to reduce false positives (e.g., faces as bottles).
 
 
 
-\### Post‑processing rules
+### Post‑processing rules
 
-\- `MAX\_BOX\_AREA\_RATIO = 0.4` → drop very large \*\*and centered\*\* boxes (>40% of image area).
+- `MAX_BOX_AREA_RATIO = 0.4` → drop very large **and centered** boxes (>40% of image area).
 
-\- `MIN\_ASPECT\_RATIO   = 1.5` → drop near‑square/wide boxes (bottles are typically tall).
+- `MIN_ASPECT_RATIO   = 1.5` → drop near‑square/wide boxes (bottles are typically tall).
 
-\- `CENTER\_TOLERANCE   = 0.2` → defines “centered” (±20% of image width).
+- `CENTER_TOLERANCE   = 0.2` → defines “centered” (±20% of image width).
 
 
 
@@ -42,7 +42,7 @@ These thresholds live in `app/server.py` and can be tuned.
 
 
 
-\## Project structure
+## Project structure
 
 ```
 
@@ -78,11 +78,11 @@ docs/
 
 
 
-\## Prerequisites
+## Prerequisites
 
-\- \*\*Docker\*\* (for the recommended path below)
+- **Docker** (for the recommended path below)
 
-\- Optional for local dev: \*\*conda/Python 3.10\*\*
+- Optional for local dev: **conda/Python 3.10**
 
 
 
@@ -90,7 +90,7 @@ docs/
 
 
 
-\## Quickstart — run with Docker (recommended)
+## Quickstart — run with Docker (recommended)
 
 
 
@@ -110,13 +110,13 @@ Run it:
 
 docker run --rm -p 8080:8080 objdet:latest
 
-\# open http://127.0.0.1:8080
+# open http://127.0.0.1:8080
 
 ```
 
 
 
-\*\*Health check:\*\* visit `http://127.0.0.1:8080/health` → should return `ok`.
+**Health check:** visit `http://127.0.0.1:8080/health` → should return `ok`.
 
 
 
@@ -128,7 +128,7 @@ docker run --rm -p 8080:8080 objdet:latest
 
 
 
-\## Run locally (without Docker)
+## Run locally (without Docker)
 
 
 
@@ -144,7 +144,7 @@ pip install -r requirements.txt
 
 python app/server.py
 
-\# open http://127.0.0.1:8080
+# open http://127.0.0.1:8080
 
 ```
 
@@ -154,15 +154,15 @@ python app/server.py
 
 
 
-\## Using the interface
+## Using the interface
 
-1\. Open the home page and \*\*upload\*\* a JPG/PNG.
+1. Open the home page and **upload** a JPG/PNG.
 
-2\. Click \*\*Detect\*\* — results appear on the \*\*same page\*\* as an annotated image.
+2. Click **Detect** — results appear on the **same page** as an annotated image.
 
-3\. Click \*\*New image\*\* to try another file.
+3. Click **New image** to try another file.
 
-4\. \*\*Endpoints:\*\*
+4. **Endpoints:**
 
 &nbsp;  - `GET /` — upload UI
 
@@ -176,13 +176,13 @@ python app/server.py
 
 
 
-\## Known issues / limitations
+## Known issues / limitations
 
-\- \*\*Free‑tier cold start (Render):\*\* if deployed on free tier, first request after ~15 minutes may be slow.
+- **Free‑tier cold start (Render):** if deployed on free tier, first request after ~15 minutes may be slow.
 
-\- \*\*CPU inference:\*\* fine for demos; GPU hosting would increase throughput.
+- **CPU inference:** fine for demos; GPU hosting would increase throughput.
 
-\- \*\*Large images:\*\* can slow inference. Consider adding upload size limits.
+- **Large images:** can slow inference. Consider adding upload size limits.
 
 
 
@@ -190,19 +190,19 @@ python app/server.py
 
 
 
-\## Troubleshooting
+## Troubleshooting
 
-\- Missing packages when running in Docker → rebuild image (`docker build -t objdet:latest .`).
+- Missing packages when running in Docker → rebuild image (`docker build -t objdet:latest .`).
 
-\- Port already in use → run with another host port: `docker run -p 8081:8080 objdet:latest` and open `http://127.0.0.1:8081`.
+- Port already in use → run with another host port: `docker run -p 8081:8080 objdet:latest` and open `http://127.0.0.1:8081`.
 
-\- If your repo is public and `models/best.pt` is \*\*>100 MB\*\*, use \*\*Git LFS\*\*:
+- If your repo is public and `models/best.pt` is **>100 MB**, use **Git LFS**:
 
 &nbsp; ```bash
 
 &nbsp; git lfs install
 
-&nbsp; git lfs track "\*.pt"
+&nbsp; git lfs track "*.pt"
 
 &nbsp; git add .gitattributes
 
@@ -214,17 +214,17 @@ python app/server.py
 
 
 
-\## Versions (runtime)
+## Versions (runtime)
 
-\- Python 3.10
+- Python 3.10
 
-\- PyTorch \*\*2.2.2\*\* (CPU) + TorchVision \*\*0.17.2\*\*
+- PyTorch **2.2.2** (CPU) + TorchVision **0.17.2**
 
-\- Ultralytics \*\*8.3.179\*\*
+- Ultralytics **8.3.179**
 
-\- Flask \*\*3.0.3\*\*, Gunicorn \*\*22.0.0\*\*
+- Flask **3.0.3**, Gunicorn **22.0.0**
 
-\- Pillow, OpenCV‑Python‑Headless, NumPy, Matplotlib, Seaborn
+- Pillow, OpenCV‑Python‑Headless, NumPy, Matplotlib, Seaborn
 
 
 
@@ -232,9 +232,9 @@ python app/server.py
 
 
 
-\## License \& attribution
+## License & attribution
 
-\- Model framework: \*\*YOLOv5\*\* by Ultralytics (AGPL‑3.0). See the YOLOv5 repository for license details.
+- Model framework: **YOLOv5** by Ultralytics (AGPL‑3.0). See the YOLOv5 repository for license details.
 
 
 
