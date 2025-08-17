@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>YOLOv5 Object Detection</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 2rem; }
+      .card { max-width: 720px; padding: 1rem; border: 1px solid #eee; border-radius: 12px; }
+      #out img { max-width: 100%; border: 1px solid #ddd; border-radius: 8px; margin-top: 1rem; }
+      .row { display: flex; gap: 0.5rem; align-items: center; }
+      button { padding: .6rem 1rem; border-radius: 8px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>YOLOv5 Object Detection</h1>
+      <form id="form">
+        <div class="row">
+          <input id="file" type="file" name="file" accept="image/*" required />
+          <button type="submit">Detect</button>
+          <button type="button" id="reset">New image</button>
+        </div>
+      </form>
+      <div id="status" style="margin-top: .5rem; color: #666;"></div>
+      <div id="out"></div>
+    </div>
+
+    <script>
+      const form = document.getElementById("form");
+      const fileInput = document.getElementById("file");
+      const out = document.getElementById("out");
+      const status = document.getElementById("status");
+      const resetBtn = document.getElementById("reset");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "Running detection...";
+        out.innerHTML = "";
+        const fd = new FormData(form);
+        try {
+          const res = await fetch("/predict", { method: "POST", body: fd });
+          if (!res.ok) {
+            const j = await res.json().catch(() => ({ error: "Upload failed" }));
+            alert(j.error || "error");
+            status.textContent = "";
+            return;
+          }
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          out.innerHTML = `<img src="${url}" alt="detections" />`;
+          status.textContent = "Done.";
+        } catch (err) {
+          alert("Network error");
+          status.textContent = "";
+        }
+      });
+
+      resetBtn.addEventListener("click", () => {
+        fileInput.value = "";
+        out.innerHTML = "";
+        status.textContent = "";
+        fileInput.focus();
+      });
+    </script>
+  </body>
+</html>
